@@ -1,0 +1,84 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3855
+
+HISTORY
+==========================================================
+After using the project plugin for quite some time, there were several minor
+things that I started changing because I was used to working with TABs on
+Visual Studio. At first, I tried to keep my code separated from the original
+project plugin code, but over time, as my code grew larger and the project
+plugin sat still I end up merging both into one plugin to avoid replication.
+
+This ide plugin thus contains a re-write of the plugin project (1.3k) plus
+my additional ide code (2.5k). The re-write was needed because instead of 
+loading a project file into a file buffer, the ide plugin loads an index of
+all project files into a hash and displays it on the dedicated buffer, this 
+allows for integration with other plugins that I do use such as the source
+explorer plugin. There is a powerful feature in the original project plugin
+(script loading at file or project open) that I have never really used.
+I have ported this feature but I have never tested it.
+
+I do not expect you will agree with all changes, but I hope that some time in
+the future someone else also motivated by "personal taste" will end up taking
+over this code, improve it and then pass it on, till the time we get a true
+IDE on top of vim.
+
+Now that I look back to this plugin, I think it would have been probably easier
+to implement it on VIM itselft.
+
+CHANGES WITH RESPECT TO THE PROJECT PLUGIN
+===========================================================
+I have tried to maintain the same functionality of the original project plugin,
+that is, almost all its commands, settings, and flags are still valid. If you
+have already used the project plugin then its migration to the ide plugin will
+be transparent.
+
+The main changes, upgrades and extensions that the ide plugin has with
+ respect to the project plugin are:
+
+  Better visualization
+   - The ide window follows any tab movement provinding a persistant panel ide.
+   - Keeps track of all files opened, edited and closed using icons. Pending
+     tracking updates are refreshed as soon as the ide window is entered so
+     you can visualize the status of your project.
+   - No more multiple windows for the same buffer. Opening a file which is 
+     already open won't create another window but will jump to the correct 
+     tab and window.   
+   - Cursor movement within the ide windows seems as a file or project select.
+   - Windows width can be adjusted and re-adjusted.
+   - Tabs provide information on mouse hover
+
+  More Friendly 
+  - Closing a project unloads all its working variables, so its safe to invoke 
+    the|ide|again. Or open a new project and let to the|ide|unload the current
+    one.
+  - Help can be lauch from within the ide window by pressing <F1>
+  - All key-bindings can be customized in the|vimrc|file to another mapping.    
+  - Information on some key processes are provided on the command line
+  - Errors on bad usage are notified  
+  
+  Syntax Highlight 
+  - Create syntax files for the project-file
+  - Syntax file for the project are generated and loaded for the files on open
+  - Highlights are automatically or manually updated through the IDESyntax    
+    command.
+  - Highlights are refreshed on idle intervals, so your idle times are no
+    longer wasted.
+
+  Other Plugin interactions
+  - Can be registered to other plugins
+  - Have built in workarounds for some plugins that I use as part of my ide:
+    showmarks, taglist, source-explorer, ex-global-search
+
+  Tracing, Logging and Debugging Support
+  - Logs with detailed information of traces can be generated, see IDEShowlog
+  - All internal variables can be exposed through the command IDEShowenv
+  - Easier than ever to debug the plugin so you can modify it and improve it.
+    
+  OverHauling 
+  - The core of the project plugin was re-writen to be loaded in a dedicated
+    buffer named __IDE_Project__. The project-file is read on loading the ide
+    and then closed, all the files contained are indexed and store in a map.
+  - Having the information in a map renders continuos parsing of the
+    project-file unnecessary, and fascilitates the development of extensions.
+  - Make a project or a sub-project, with the key binding you wish.      
+

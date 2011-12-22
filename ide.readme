@@ -1,0 +1,38 @@
+In Linux:
+Place the following files [1-4] at ~/vim/icons
+
+ [1] ideClose.png
+ [2] ideEdit.png
+ [3] ideOpen.png
+ [4] ideReadOnly.png
+
+Then move the files [5-6] to ~/vim/plugins
+
+ [5] ide.vim
+ [6] ideSyntax.pl
+
+make sure that ideSyntax.pl has execution properties
+as this perl script is used by the ide pluggin to generate
+highlight syntax coloring for C/C++ files.
+
+Move the file [7] to ~/vim/doc
+
+  [7] ide.txt
+
+After moving the previous file, execute within vim
+
+  :helptags ~/vim/doc
+  :help ide
+
+Optionally, you can place file [8] within your path to
+generate or load project-files. After reading this readme
+you can delete it.
+
+  [8] ide.sh
+  [9] ide.readme (this file)
+
+In Windows:
+Follow the instructions provided in the Linux section 
+but change the root folder ~/vim by $VIM/vimfiles where
+the value of $VIM can be obtained by typing :echo $VIM
+in your current vim window.
